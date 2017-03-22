@@ -1,7 +1,7 @@
 <?php
 
 
-
+session_start();
 function grstrtoupper($string) {
 		$latin_check = '/[\x{0030}-\x{007f}]/u';
 		if (preg_match($latin_check, $string))
@@ -23,21 +23,23 @@ function grstrtoupper($string) {
 		$uppecase_string = str_replace($lowercase, $uppercase, $string);
 		return $uppecase_string;
 }
-$afm=$_POST['afm'];
-$surname=grstrtoupper($_POST['surname']);
+function SetSessionNull(){
+	$_SESSION['inputAfm']=NULL;
+  $_SESSION['inputSurname']=NULL;
+}
+$inputAfm=$_POST['inputAfm'];
+$inputSurname=grstrtoupper($_POST['inputSurname']);
 if ($_POST["submit"]) {
-
 			
 			
-	 	 if (!$afm) {
-
+	 	 if (!$inputAfm) {
 			 $error="Παρακαλώ πληκτρολογήστε το ΑΦΜ σας";
 
-	 	 } elseif(strlen($afm)!=9 || !is_numeric($afm)){
+	 	 } elseif(strlen($inputAfm)!=9 || !is_numeric($inputAfm)){
 			$error="Μη έγκυρος ΑΦΜ!!";	 	 	
 	 	 }
 			
-	 	 if (!$surname) {
+	 	 if (!$inputSurname) {
 
 			 $error.="<br/>Παρακαλώ πληκτρολογήστε το Επώνυμό σας";
 
@@ -46,6 +48,7 @@ if ($_POST["submit"]) {
 	 	 
 			
 	 	 if ($error) {
+	 	 	SetSessionNull();
 
 			 $result='<div class="alert alert-danger"><strong>'.$error.'</div>';
 
@@ -58,32 +61,34 @@ if ($_POST["submit"]) {
 			$csv = new parseCSV();
 			# Parse '_books.csv' using automatic delimiter detection...
 			$csv->encoding('iso8859-7','UTF-8');
-			#if the first digit of $afm is zero then it will be trimmed in the csv
+			#if the first digit of $inputAfm is zero then it will be trimmed in the csv
 			#this is a trick to bypass this
-			// if($afm.substr(0,1)=="0"){
-			// 	$afm=$afm.substr(1);
+			// if($inputAfm.substr(0,1)=="0"){
+			// 	$inputAfm=$inputAfm.substr(1);
 			// }
-			// echo $afm;
-			$csv->conditions = 'afm is '.$afm.' AND surname is '.$surname;
+			// echo $inputAfm;
+			$csv->conditions = 'inputAfm is '.$inputAfm.' AND inputSurname is '.$inputSurname;
 			$csv->auto('ESPA.csv');
 			$parsed = $csv->data;
-			$afm=$parsed[0][afm];
-			// if(strlen($afm)<9){
-			// 	$afm=
+			$inputAfm=$parsed[0][inputAfm];
+			// if(strlen($inputAfm)<9){
+			// 	$inputAfm=
 			// }
-			$surname=$parsed[0][surname];
+			$inputSurname=$parsed[0][inputSurname];
 			$praksi=$parsed[0][praksi];
-			if($surname==""){
+			if($inputSurname==""){
 				$result='<div class="alert alert-danger"> H/O συγκεκριμένος Εκπαιδευτικός δεν υπάρχει στην Βάση των Αναπληρωτών Εκπαιδευτικών ΕΣΠΑ/ΠΔΕ </div>';
 			}else{
-
-				 $result='<div class="alert alert-success">Η πράξη που ανήκει η/ο Εκπαιδευτικός <strong>'.$surname.' με ΑΦΜ '.$afm.'</strong>, είναι: <strong>'.$praksi.' </strong>
+				// $_GET['logout']='0';
+				$_SESSION['inputAfm']=$inputAfm;
+				$_SESSION['inputSurname']=$inputSurname;
+				 $result='<div class="alert alert-success">Η πράξη που ανήκει η/ο Εκπαιδευτικός <strong>'.$inputSurname.' με ΑΦΜ '.$inputAfm.'</strong>, είναι: <strong>'.$praksi.' </strong>
 				 <br/> Μπορείτε να κατεβάσετε το παρουσιολόγιο της συγκεκριμένης πράξης <strong> <a href="parousiologia/'.$praksi.'.xls"> εδώ </a> </strong>
 				 <br/> Οδηγίες συμπλήρωσης του παρουσιολογίου υπάρχουν <strong> <a href="parousiologia/odigies.doc"> εδώ </a> </strong> 
-				 <br/> Δείτε την μισθοδοσία σας <strong> <a href="http://www.dipechan.gr/espa-payments/index.php"> εδώ </strong> </div>';
+				 <br/> Δείτε την μισθοδοσία σας <strong> <a href="http://www.dipechan.gr/espa-payments/index.php" target="_blank"> εδώ </strong> </a> </div>';
 				 $logged='</ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="http://localhost/PortalEspa/PortalEspa.php"><span class="glyphicon glyphicon-log-out"></span> Αποσυνδεθείτε</a></li>
+        <li><a href="http://www.dipechan.gr/PortalESPA/PortalEspa.php?logout=1"><span class="glyphicon glyphicon-log-out"></span> Αποσυνδεθείτε</a></li>
       </ul>';
 			}
 

@@ -1,8 +1,15 @@
 <?php
-
+session_start();
+if ($_GET['logout']=='1') {
+	$_SESSION['inputAfm']=NULL;
+  $_SESSION['inputSurname']=NULL;
+ 
+}
 // Report simple running errors
 error_reporting(E_ERROR | E_WARNING | E_PARSE);
 include("error.php");
+
+
 
 ?>
 
@@ -93,8 +100,8 @@ include("error.php");
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Εφαρμογές
         <span class="caret"></span></a>
           <ul class="dropdown-menu">
-          <li><a href="http://www.dipechan.gr/espa-payments/">Εφαρμογή Εκτύπωσης Μισθοδοσίας</a></li>
-          <li><a href="http://www.dipechan.gr/espa_prog/index.php">Εύρεση Πράξης ΕΣΠΑ/ΠΔΕ Εκπαιδευτικού</a></li>
+          <li><a href="http://www.dipechan.gr/espa-payments/" target="_blank">Εφαρμογή Εκτύπωσης Μισθοδοσίας</a></li>
+          <li><a href="http://www.dipechan.gr/espa_prog/index.php" target="_blank">Εύρεση Πράξης ΕΣΠΑ/ΠΔΕ Εκπαιδευτικού</a></li>
           </ul>
         </li>      
         
@@ -141,13 +148,12 @@ include("error.php");
 
       <div class="form-group">
       <label for="name" class="owhite">ΑΦΜ:</label>
-      <input type="text" name="afm" id="nm" class="form-control" placeholder="ΑΦΜ" value="<?php echo $_POST['afm']; ?>" />
+      <input type="text" name="inputAfm" id="nm" class="form-control" placeholder="ΑΦΜ" value="<?php echo $_POST['inputAfm']; ?>" />
       </div>
-
       <div class="form-group">
 
-      <label for="surname" class="owhite">Επώνυμο:</label>
-      <input type="text" name="surname" id="snm" class="form-control" placeholder="Επώνυμο" value="<?php echo $_POST['surname']; ?>"/>
+      <label for="inputSurname" class="owhite">Επώνυμο:</label>
+      <input type="text" name="inputSurname" id="snm" class="form-control" placeholder="Επώνυμο" value="<?php echo $_POST['inputSurname']; ?>"/>
 
     </div>
 
@@ -166,7 +172,7 @@ include("error.php");
 </div>
 
 <footer class="container-fluid text-center">
-  <p>&copy; Χαραλαμπάκης Στέργιος  <a href="mail@dipe.chan.sch.gr"> ΔΙ.Π.Ε. Χανίων</a</p>
+  <p>&copy; Χαραλαμπάκης Στέργιος  <a href="mail@dipe.chan.sch.gr"> ΔΙ.Π.Ε. Χανίων</a></p>
 </footer>
 
  <script type="text/javascript">  
