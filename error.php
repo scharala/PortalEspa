@@ -58,22 +58,33 @@ if ($_POST["submit"]) {
 			$csv = new parseCSV();
 			# Parse '_books.csv' using automatic delimiter detection...
 			$csv->encoding('iso8859-7','UTF-8');
+			#if the first digit of $afm is zero then it will be trimmed in the csv
+			#this is a trick to bypass this
+			// if($afm.substr(0,1)=="0"){
+			// 	$afm=$afm.substr(1);
+			// }
+			// echo $afm;
 			$csv->conditions = 'afm is '.$afm.' AND surname is '.$surname;
 			$csv->auto('ESPA.csv');
 			$parsed = $csv->data;
 			$afm=$parsed[0][afm];
-			if(strlen($afm)<9){
-				$afm=
-			}
+			// if(strlen($afm)<9){
+			// 	$afm=
+			// }
 			$surname=$parsed[0][surname];
 			$praksi=$parsed[0][praksi];
-			if($name==""){
+			if($surname==""){
 				$result='<div class="alert alert-danger"> H/O συγκεκριμένος Εκπαιδευτικός δεν υπάρχει στην Βάση των Αναπληρωτών Εκπαιδευτικών ΕΣΠΑ/ΠΔΕ </div>';
 			}else{
 
 				 $result='<div class="alert alert-success">Η πράξη που ανήκει η/ο Εκπαιδευτικός <strong>'.$surname.' με ΑΦΜ '.$afm.'</strong>, είναι: <strong>'.$praksi.' </strong>
 				 <br/> Μπορείτε να κατεβάσετε το παρουσιολόγιο της συγκεκριμένης πράξης <strong> <a href="parousiologia/'.$praksi.'.xls"> εδώ </a> </strong>
-				 <br/> Οδηγίες συμπλήρωσης του παρουσιολογίου υπάρχουν <strong> <a href="parousiologia/odigies.doc"> εδώ </a> </strong> </div>';
+				 <br/> Οδηγίες συμπλήρωσης του παρουσιολογίου υπάρχουν <strong> <a href="parousiologia/odigies.doc"> εδώ </a> </strong> 
+				 <br/> Δείτε την μισθοδοσία σας <strong> <a href="http://www.dipechan.gr/espa-payments/index.php"> εδώ </strong> </div>';
+				 $logged='</ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="http://localhost/PortalEspa/PortalEspa.php"><span class="glyphicon glyphicon-log-out"></span> Αποσυνδεθείτε</a></li>
+      </ul>';
 			}
 
  	} 

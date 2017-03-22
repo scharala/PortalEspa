@@ -9,7 +9,7 @@ include("error.php");
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Portal Αναπληρωτών Εκπαιδευτικών ΕΣΠΑ/ΠΔΕ</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -119,10 +119,11 @@ include("error.php");
         <li><a href="https://drive.google.com/drive/folders/0BxqB63k_FMnpbWphWnlrU0lWQms" target="_blank">Οδηγοί Υλοποίησης</a></li>
         <li><a href="https://drive.google.com/drive/folders/0BxqB63k_FMnpbDhNd0JDLUliRjA" target="_blank">Χρήσιμα Έντυπα</a></li>
         <li><a href="http://dipechan.blogspot.gr/search/label/Αναπληρωτές ΕΣΠΑ" target="_blank">Αναρτήσεις</a></li>
-      </ul>
+        <?php echo $logged; ?>
+     <!--  </ul>
       <ul class="nav navbar-nav navbar-right">
         <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+      </ul> -->
     </div>
   </div>
 </nav>
