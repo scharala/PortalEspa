@@ -1,12 +1,14 @@
 <?php
 session_start();
+// Report simple running errors
+error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
 if ($_GET['logout']=='1') {
 	$_SESSION['inputAfm']=NULL;
   $_SESSION['inputSurname']=NULL;
  
 }
-// Report simple running errors
-error_reporting(E_ERROR | E_WARNING | E_PARSE);
+
 include("error.php");
 
 
@@ -35,15 +37,16 @@ include("error.php");
       background-size:cover;  
       background-position:center;  
       height: 100%;
-      padding-top: 120px;
+      padding-top: 140px;
+
 
 
     }
     .frm-main{
        border:1px solid grey;
        border-radius:10px;
-       margin-bottom: 180px;
-       padding: 10px;
+       margin-bottom: 110px;
+       /*padding: 10px;*/
        background-color: white;
 
     }
@@ -56,20 +59,57 @@ include("error.php");
 
     
     .white {
-        font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;  
+    	font-family: "Times New Roman", Times, serif;
+        /*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;  */
         /*color:white;  */
       } 
       .btn{
       margin-bottom: 20px;
       margin-top: 5px;
       }
+
+      .jmb{
+      	margin: 0;
+      	padding-left: 10px;
+
+      	/*font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;  */
+      	height: 40px;
+      }
+      .jmb h3{
+      	margin-top:-10px;
+
+      	/*color: white;*/
+      }
+      .parbtn{
+      	margin-top:-38px;
+      	margin-right:120px;
+      }
+      .drbmn{
+      	margin-top:-5px;
+      	margin-right:100px;	
+      }
+      .pb{
+      	padding: 0 5px 0 5px;
+      	font-size: 16px;
+      }
+      .frm_ins{
+      	width: 600px;
+      	margin: auto;
+      }
+      .dropdown-menu{
+      	display: none;
+      }
+      .dropdown:hover .dropdown-menu {
+	    display: block;
+	  }
        
     /* Set black background color, white text and some padding */
     footer {
       background-color: #555;
       color: white;
-      padding: 15px;
+      padding: 10px;
     }
+
     
     /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 767px) {
@@ -124,7 +164,7 @@ include("error.php");
           </ul>
         </li>   
         <li><a href="https://drive.google.com/drive/folders/0BxqB63k_FMnpbWphWnlrU0lWQms" target="_blank">Οδηγοί Υλοποίησης</a></li>
-        <li><a href="https://drive.google.com/drive/folders/0BxqB63k_FMnpbDhNd0JDLUliRjA" target="_blank">Χρήσιμα Έντυπα</a></li>
+        <li><a href="https://drive.google.com/drive/folders/0BxqB63k_FMnpbDhNd0JDLUliRjA" target="_blank">Χρήσιμα Έντυπα ΕΣΠΑ</a></li>
         <li><a href="http://dipechan.blogspot.gr/search/label/Αναπληρωτές ΕΣΠΑ" target="_blank">Αναρτήσεις</a></li>
         <?php echo $logged; ?>
      <!--  </ul>
@@ -134,6 +174,31 @@ include("error.php");
     </div>
   </div>
 </nav>
+
+<div class="jumbotron jmb clearfix">
+  <h3 class="white">Μπορείτε να κατεβάσετε τα παρουσιολόγια όλων των πράξεων εδώ:</h3> 
+  <div class="dropdown">
+  <button class="parbtn btn btn-primary dropdown-toggle pull-right" type="button" data-toggle="dropdown">Παρουσιολόγια ΕΣΠΑ/ΠΔΕ
+  <span class="caret"></span></button>
+  <ul class="dropdown-menu dropdown-menu-right drbmn">
+	<li><a href="parousiologia/odigies.doc">Οδηγίες Συμπλήρωσης</a></li>
+	<li role="presentation" class="divider"></li>
+	<li><a href="parousiologia/eniaioy.xls">Ενιαίου Τύπου Δημοτικό</a></li>
+	<li><a href="parousiologia/prosxoliki.xls">Ενίσχυση Προσχολικής Αγωγής</a></li>
+	<li><a href="parousiologia/eksatomikeumeni.xls">Εξατομικευμένη</a></li>
+	<li><a href="parousiologia/exeidikeumeni.xls">Εξειδικευμένη</a></li>
+	<li><a href="parousiologia/pep.xls">ΠΕΠ-ΕΒΠ</a></li>
+	<li><a href="parousiologia/ypostiriktikes.xls">Υποστηρικτικές Δομές</a></li>
+	<li><a href="parousiologia/eko.xls">ΕKO</a></li>
+	<li role="presentation" class="divider"></li>
+	<li><a href="parousiologia/pde.xls">ΠΔΕ</a></li>
+	<li><a href="parousiologia/pde_eep_evp.xls">ΠΔΕ ΕΕΠ-ΕΒΠ</a></li>
+	<li role="presentation" class="divider"></li>
+	<li><a href="parousiologia/anafora.doc">Αναφορά Ανάληψης ΕΣΠΑ</a></li>
+  </ul>
+</div>
+  
+</div>
   
 <div class="container-fluid text-center">    
   <div class="row content">
@@ -141,19 +206,19 @@ include("error.php");
     <div class="col-sm-8 col-md-offset-2 text-center"> 
       <form method="post" class="frm-main" accept-charset='UTF-8' >
 
-      <h1 class="center white">Portal Αναπληρωτών Εκπαιδευτικών ΕΣΠΑ/ΠΔΕ</h1>
+      <h2 class="center white">Portal Αναπληρωτών Εκπαιδευτικών ΕΣΠΑ/ΠΔΕ</h2>
 
-      <h3 class="center white">Συνδεθείτε με το ΑΦΜ και το Επώνυμό σας </h3>
+      <p class="center white pb">Συνδεθείτε με το ΑΦΜ και το Επώνυμό σας για να δείτε την πράξη που ανήκετε και την μηνιαία μισθοδοσία σας (Απευθύνετε <strong> <u> μόνο </u></strong> σε Αναπληρωτές Εκπαιδευτικούς ΕΣΠΑ/ΠΔΕ) </p>
       </br>
 
       <div class="form-group">
       <label for="name" class="owhite">ΑΦΜ:</label>
-      <input type="text" name="inputAfm" id="nm" class="form-control" placeholder="ΑΦΜ" value="<?php echo $_POST['inputAfm']; ?>" />
+      <input type="text" name="inputAfm" id="nm" class="form-control frm_ins" placeholder="ΑΦΜ" value="<?php echo $_POST['inputAfm']; ?>" />
       </div>
       <div class="form-group">
 
       <label for="inputSurname" class="owhite">Επώνυμο:</label>
-      <input type="text" name="inputSurname" id="snm" class="form-control" placeholder="Επώνυμο" value="<?php echo $_POST['inputSurname']; ?>"/>
+      <input type="text" name="inputSurname" id="snm" class="form-control frm_ins" placeholder="Επώνυμο" value="<?php echo $_POST['inputSurname']; ?>"/>
 
     </div>
 
